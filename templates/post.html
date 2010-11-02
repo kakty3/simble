@@ -12,8 +12,11 @@ $def with (session)
 
 	<body>
 		$if session.loggedin:
-			You are logged as <b>$session.username</b><br />
-			<a href="/logout">logout</a>
+			<form method="post" action="/post">
+				<input type="text" name="topic"><br />	
+				<textarea cols="50" rows="10" name="body"></textarea><br />
+				<input type='submit' value='post'>
+			</form>	
 		$else:
 			You are not logged in. Wanna <a href="/login">login</a>? Or <a href="/reg">sign up</a>?
 		</span>

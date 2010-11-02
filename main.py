@@ -1,6 +1,6 @@
 #!/usr/bin/python 
 
-import web, os, users
+import web, os, users, messages
 from urlparse import urlparse
 
 ItemsOnPage = 10
@@ -117,6 +117,17 @@ class ajax:
 		else:
 			return 'unknown command'
 
+class post:
+	def GET(self):
+		return render.post(session)
+
+	def POST(self):
+		i = web.input()
+		resp = messages.new(i)
+		if resp == 0:
+			return web.seeother('/')
+
+
 def delete(id):
 	if db.delete('images', where="id=$id", vars={'id' : id}):
 		return "image id=%d deleted" % id
@@ -151,6 +162,7 @@ urls = (
 	'/reg', 'registration',
 	'/login', 'login',
 	'/logout', 'logout',
+	'/post', 'post'
 	#'/admin', admin.app,
 )
 
