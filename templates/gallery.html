@@ -1,0 +1,128 @@
+$def with (gallery, pages, ret, page, show="")
+
+<html>
+	<head>
+		<title>ThesTupIDgaLleRy</title>
+		<link rel="shortcut icon" type="image/ico" href="/static/favicon.ico" /> 
+		<script>
+			changeColor = function(id) {
+				e = document.getElementById(id);
+				e.style.color = Math.round(0xffffff * Math.random()).toString(16);
+			}
+		</script>
+		<style type="text/css">
+			body {
+				padding-top: 40px;
+				padding-left: 15%;
+				padding-bottom: 30px;
+			}
+			#header {
+				margin-bottom: 45px;
+				font-size: 40px;
+				font-family: Georgia;
+				width: 75%;
+				color: #FCFFC4;
+			}
+			.block {
+				margin-bottom: 50px;
+				border-bottom: 1px solid #A1A1A1;
+				padding-left: 10px;
+				width: 40%;
+			}
+			.blockLast {
+				margin-bottom: 50px;
+				padding-left: 10px;
+				width: 45%;
+			}
+			.big_image {
+		<!--
+				margin-bottom: 20px;
+		-->
+			}
+			.text_block {
+				font-size: 13px;
+				font-family: Georgia;
+				color: #909090;
+			}
+			a {
+				text-decoration: none;
+				color: #FAE86F;
+			}
+			.nameURL {
+				font-size: 13px;
+				font-family: Georgia;
+				color: #F2E65F;
+			}
+			.nameURL:hover {
+				color: #DDCB10;
+			}
+			.page-nav {
+				border-top: 1px solid #A1A1A1;
+				padding: 4px;
+				padding-left: 10px;
+				padding-right: 10px;
+				font-size: 20px;
+				background-color: #353535;
+				color: #FFE351;
+				font-family: Tahoma;
+			}
+			.add {
+				font-size: 12px;
+				border-bottom: 1px dashed;
+				color: #B5B5B5;
+				font-family: Arial;
+			}
+			.add:hover {
+				color: #F2ED84;
+				border-bottom: 1px solid;
+			}
+		</style>
+	</head>
+
+	<body bgcolor=#232323>
+		$if session.loggedin:
+			<class style="color:#FFFFFF; font-family: Arial">You are logged as <font color="#B08A21">$session.username</font> <!-- (<u>username</u> = $session.username, <u>user_id</u> = $session.user_id, <u>permissions</u> = $session.permission)--> | <a href="/logout">Log out</a></class>
+		$else:
+			<class style="color:#FFFFFF; font-family: Arial">You are not logged in | <a href="/login">Log in</a> | <a href="/register">Sign up</a></class>
+		<class style="color:#FFFFFF">| <a href="/admin">Admin Panel</a></class><br>
+		<hr color="#FFFFFF" size="1" noshade>
+		<a href="/"><span id="header" onMouseOver="changeColor('header')">ThesTupIDgaLleRy</span></a>
+		$if session.loggedin:
+			<a href="/add"><span class="add">add picture</span></a><br>
+		<span><a href="/">best</a> | <a href="/all">all</a></span>
+
+		<!--
+		$if session.username != 'kakty3' and session.username != 'root':
+			<br><class style="color:#FFFFFF; ">Товарищи, давайте не постить хуйни на главную.
+			Когда добаляете картинку, убирайте галку с Public. Скоро доделаю личную страничку и там вы сполна насладитесь своими картинками.
+			Также скоро приделаю рейтинг, чтобы можно было если чо убрать картинку с главной, или наоборот, поставить на главную (как на хабре).
+			Если чо, то ваши картинки я не удаляю, а просто убираю их с главной. Скоро все будет. А пока терпите. И не постите хуйню!</class>
+		-->
+
+
+		$for img in gallery:
+			<div class="$ret(loop.last, 'blockLast', 'block')" id="$loop.index">
+			
+				<div class="text_block">name <a href="$img.url" target="_blank"><span class="nameURL">$img.name</span></a></div><br>
+
+				<div class="big_image"><a href="$img.url" target="_blank"><img src="$img.url" style="max-height: 450px; max-width: 400px"></a></div><br>
+
+				<div class="text_block">added by <class style="font-size:150%; font-family: Tahoma;">$getName(img.user_id)</class>, $img.created.strftime("%B %d at %H:%M")</div><br>
+			</div>
+
+		<span class="page-nav">
+			$if page != 1:
+				<a href="$ret(show=='all','/all', '')/page/$(page - 1)"><<</a>
+			$for i in range(pages):
+				$if i + 1 == page:
+					<span style="font-size: 130%; color: #B08A21">$(i + 1)</span>
+				$else:
+					<a href="$ret(show=='all','/all', '/')$ret(loop.first,'','/page/%d' % (i + 1))">$(i + 1)</a>
+			$if page != i + 1:
+				<a alt="next page"  href="$ret(show=='all','/all', '')/page/$(page + 1)">>></a>
+
+			
+		</span>
+
+	</body>
+</html>
