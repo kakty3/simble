@@ -1,0 +1,21 @@
+$def with (session)
+
+<html>
+	<head>
+		<title>blog</title>
+		<link rel="shortcut icon" type="image/ico" href="/static/favicon.ico" /> 
+		<script>
+		</script>
+		<style type="text/css">
+		</style>
+	</head>
+
+	<body>
+		$if session.loggedin:
+			You are logged in
+		$else:
+			You are not logged in
+		</span>
+
+	</body>
+</html>

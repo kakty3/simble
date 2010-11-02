@@ -1,10 +1,10 @@
 #!/usr/bin/python 
 
-#import web, os, re, admin, users
+import web, os, users
 from urlparse import urlparse
 
-ImagesOnPage = 10
-ImagesDatabaseName = 'images'
+ItemsOnPage = 10
+DatabaseName = 'blog'
 
 #web.config.debug = False
 
@@ -94,16 +94,18 @@ class login:
 class registration:
 	def GET(self):
 		if not session.loggedin:
-			return render.register()
+			return render.registration()
 		else:
 			return render.message("Warning", "Please, log out to register")#, 'try to login again', '/login')
 
 	def POST(self):
+		print 'REG POST'
 		i = web.input()
-		print i
-		if users.addUser(i.username, i.password):
-			return render.message("Error", "Can't register", 'try again', '/register')
-		return render.message("Welcome", "Your registration is succesful")
+		#print i
+		response = users.addUser(i.username, i.password)
+		print response
+		if response == 0:
+			main.GET(self)
 
 class ajax:
 	def GET(self):
@@ -127,7 +129,8 @@ class logout:
 	def GET(self):
 		users.logout()
 
-class show:
+class main:
+	#@staticmethod
 	def GET(self, page = 1):
 		print 'Request from ip %s page %s' % (web.ctx.ip, page)
 		######
@@ -136,17 +139,18 @@ class show:
 		#if path and path.split('/')[1] == 'all':
 		#	gallery = list(db.select('images', order="created DESC"))
 		#else:
-		x = list(db.select('images', order="created DESC", where="public=$true", vars={'true' : 1}))
-		pages = len(gallery) / ImagesOnPage
-		page = int(page)
-		if len(gallery) % ImagesOnPage:
-			pages += 1
-		return render.gallery(gallery[(page - 1) * ImagesOnPage:page * ImagesOnPage], pages, ret, page, path.split('/')[1])
+		#x = list(db.select('images', order="created DESC", where="public=$true", vars={'true' : 1}))
+		#pages = len(gallery) / ImagesOnPage
+		#page = int(page)
+		#if len(gallery) % ImagesOnPage:
+		#	pages += 1
+		return render.main(session)
 
 #===================VARIABLES==========================================
 urls = (
-	'/', 'show',
-	'/admin', admin.app,
+	'/', 'main',
+	'/reg', 'registration',
+	#'/admin', admin.app,
 )
 
 app = web.application(urls, globals())

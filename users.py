@@ -1,14 +1,21 @@
 import web
 from hashlib import md5
 
-db = web.database(dbn='mysql', user='webpy', pw='webpy', db='gallery')
+db = web.database(dbn='mysql', user='webpy', pw='webpy', db='blog')
 
 def addUser(name, password):
-	if len(password) <= 6:
-		return 1
+	'''
+	Statuses:
+		1: user exists
+		2: password is to weak
+		3: username contains invalid symbols
+	'''
+	if len(password) < 6:
+		return 2
 	if not db.select('users', where="name=$name", vars={'name' : name}):
 		password = md5(password).hexdigest()
-		n = db.insert('users', name=name, password=password, permission='user')
+		n = db.insert('users', name=name, password=password)
+		return 0
 	else:
 		return 1
 
