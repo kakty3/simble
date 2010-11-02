@@ -1,4 +1,4 @@
-$def with (session)
+$def with (session, messages)
 
 <html>
 	<head>
@@ -7,16 +7,19 @@ $def with (session)
 		<script>
 		</script>
 		<style type="text/css">
+			.message {
+				border: 1px solid #4A83A8;
+				padding: 5px;
+				margin-bottom: 15px;
+			}
 		</style>
 	</head>
 
 	<body>
-		$if session.loggedin:
-			You are logged as <b>$session.username</b><br />
-			<a href="/logout">logout</a>
-		$else:
-			You are not logged in. Wanna <a href="/login">login</a>? Or <a href="/reg">sign up</a>?
-		</span>
-
+		$for message in messages:
+		<div class='message'>
+			$message.body<br /> 
+			<span style="font-size: 12px; color:#B0B0B0"> $message.created.strftime("posted on %B %d at %H:%M")</span>
+		</div>
 	</body>
 </html>

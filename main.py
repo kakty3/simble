@@ -4,7 +4,7 @@ import web, os, users, messages
 from urlparse import urlparse
 
 ItemsOnPage = 10
-DatabaseName = 'blog'
+dbName = 'blog'
 
 #web.config.debug = False
 
@@ -139,8 +139,11 @@ class logout:
 		users.logout()
 		return web.seeother('/')
 
+class home:
+	def GET(self):
+		return render.home(session)
+
 class main:
-	#@staticmethod
 	def GET(self, page = 1):
 		print 'Request from ip %s page %s' % (web.ctx.ip, page)
 		######
@@ -154,7 +157,8 @@ class main:
 		#page = int(page)
 		#if len(gallery) % ImagesOnPage:
 		#	pages += 1
-		return render.main(session)
+		messages = list(db.select('messages', order="created DESC"))
+		return render.main(session, messages)
 
 #===================VARIABLES==========================================
 urls = (
@@ -162,7 +166,8 @@ urls = (
 	'/reg', 'registration',
 	'/login', 'login',
 	'/logout', 'logout',
-	'/post', 'post'
+	'/post', 'post',
+	'/home', 'home'
 	#'/admin', admin.app,
 )
 
@@ -181,7 +186,7 @@ app.add_processor(web.loadhook(session_hook))
 
 render = web.template.render('templates/', globals={'session': session, 'getName': users.getName})
 web.ctx.render = render
-db = web.database(dbn='mysql', user='webpy', pw='webpy', db='gallery')
+db = web.database(dbn='mysql', user='webpy', pw='webpy', db=dbName)
 
 #=======================================================================
 
