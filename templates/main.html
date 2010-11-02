@@ -12,9 +12,10 @@ $def with (session)
 
 	<body>
 		$if session.loggedin:
-			You are logged in
+			You are logged as <b>$session.username</b><br />
+			<a href="/logout">logout</a>
 		$else:
-			You are not logged in
+			You are  logged in. Wanna <a href="/login">login</a>?
 		</span>
 
 	</body>

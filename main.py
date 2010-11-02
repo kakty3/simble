@@ -82,14 +82,11 @@ class login:
 		if not session.loggedin:
 			return render.login()
 		else:
-			return render.message("Warning", "You are allready logged in")
-
+			return 'allready logge in'
 	def POST(self):
-		feedback = users.login(web.input())
-		if feedback == 0:
-			return render.message("Well done", "You were successfully loged in")
-		else:
-			return render.message("Error", feedback)#, 'try to login again', '/login')
+		resp = users.login(web.input())
+		if resp == 0:
+			return 'logged in'
 
 class registration:
 	def GET(self):
@@ -102,10 +99,11 @@ class registration:
 		print 'REG POST'
 		i = web.input()
 		#print i
-		response = users.addUser(i.username, i.password)
-		print response
-		if response == 0:
+		resp = users.addUser(i.username, i.password)
+		if resp == 0:
 			main.GET(self)
+		else:
+			return 'error'
 
 class ajax:
 	def GET(self):
@@ -150,6 +148,7 @@ class main:
 urls = (
 	'/', 'main',
 	'/reg', 'registration',
+	'/login', 'login',
 	#'/admin', admin.app,
 )
 

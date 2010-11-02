@@ -36,7 +36,6 @@ def login(i):
 		session.loggedin = True
 		session.username = user.name
 		session.user_id = user.id
-		session.permission = user.permission
 		return 0
 	else:
 		return "Password or username is incorrect"
