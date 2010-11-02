@@ -43,8 +43,7 @@ def login(i):
 def logout():
 	session = web.ctx.session
 	session.kill()
-	return web.seeother('/')
-
+	return 0
 if __name__ ==  '__main__':
 	#print getName(2)
 	pass

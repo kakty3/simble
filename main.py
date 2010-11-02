@@ -86,7 +86,7 @@ class login:
 	def POST(self):
 		resp = users.login(web.input())
 		if resp == 0:
-			return 'logged in'
+			return web.seeother('/')
 
 class registration:
 	def GET(self):
@@ -101,7 +101,7 @@ class registration:
 		#print i
 		resp = users.addUser(i.username, i.password)
 		if resp == 0:
-			main.GET(self)
+			return web.seeother('/')
 		else:
 			return 'error'
 
@@ -126,6 +126,7 @@ def delete(id):
 class logout:
 	def GET(self):
 		users.logout()
+		return web.seeother('/')
 
 class main:
 	#@staticmethod
@@ -149,6 +150,7 @@ urls = (
 	'/', 'main',
 	'/reg', 'registration',
 	'/login', 'login',
+	'/logout', 'logout',
 	#'/admin', admin.app,
 )
 
