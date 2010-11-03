@@ -1,4 +1,4 @@
-$def with (session, messages)
+$def with (session, messages, user)
 
 <html>
 	<head>
@@ -23,13 +23,17 @@ $def with (session, messages)
 
 	<body>
 		<span style="border: 2px solid black; padding: 2px; font-weight: bold;">simple blog engine</span>
+		<!--
 		Username: <b>$session.username</b>
 		<a href="/logout">logout</a>
 		<hr />
 		<form method="post" action="/post">
 			<textarea cols="40" rows="5" name="body"></textarea><br />
 			<input type='submit' value='post'>
-		</form>	
+		</form>
+		-->
+		<b>$user</b><br />
+		<hr />
 		$for message in messages:
 		<div class='message'>
 			$message.body<br /> 

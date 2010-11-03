@@ -1,0 +1,24 @@
+$def with (session, message)
+
+<html>
+	<head>
+		<title>post #$message.id</title>
+		<link rel="shortcut icon" type="image/ico" href="/static/favicon.ico" /> 
+		<script>
+		</script>
+		<style type="text/css">
+			.message {
+				border: 1px solid #4A83A8;
+				padding: 5px;
+				margin-bottom: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class='message'>
+			$message.body<br /> 
+			<span style="font-size: 12px; color:#B0B0B0">Posted on $message.created.strftime("%B %d at %H:%M") by $getName(message.author)</span>
+		</div>
+	</body>
+</html>

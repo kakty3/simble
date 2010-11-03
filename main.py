@@ -88,6 +88,24 @@ class main:
 			messages = list(db.select('messages', order="created DESC"))
 			return render.main(session, messages)
 
+class userPage:
+	def GET(self, userName):
+		userId = users.getId(userName)
+		if userId == -1:
+			return 'No user with this name'
+		else:
+			messages = list(db.select('messages', where="author=$id", vars={'id' : userId}, order="created DESC"))
+			print messages
+			return render.user(session, messages, userName)
+
+class showPost:
+	def GET(self, id):
+		message = messages.search(id = id)
+		if message:
+			return render.post(session, message[0])
+		else:
+			return 'no post with this id'
+
 #===================VARIABLES==========================================
 urls = (
 	'/', 'main',
@@ -95,7 +113,9 @@ urls = (
 	'/login', 'login',
 	'/logout', 'logout',
 	'/post', 'post',
-	'/home', 'home'
+	'/post/(\d+)', 'showPost',
+	'/home', 'home',
+	'/([a-z]+)', 'userPage',
 	#'/admin', admin.app,
 )
 

@@ -26,6 +26,13 @@ def getName(id):
 	else:
 		return 1
 
+def getId(name):
+	check = db.select('users', where="name=$name", vars={'name' : name})
+	if check:
+		return check[0].id
+	else:
+		return -1
+
 def login(i):
 	print "trying to login"
 	session = web.ctx.session

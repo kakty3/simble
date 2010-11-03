@@ -16,13 +16,14 @@ $def with (session, messages)
 				float: right;
 			}
 			#top-nav {
-				height: 15px;
+				height: 20px;
 			}
 		</style>
 	</head>
 
 	<body>
 		<div id="top-nav">
+			<span style="border: 2px solid black; padding: 2px; font-weight: bold;">simple blog engine</span>
 			$if session.loggedin:
 				[img] <b>$session.username</b>
 				<span class="right"><a href="/logout">logout</a></span>
