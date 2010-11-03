@@ -12,16 +12,20 @@ $def with (session, messages)
 				padding: 5px;
 				margin-bottom: 15px;
 			}
+			textarea {
+				resize: none;
+			}
 		</style>
 	</head>
 
 	<body>
-		$if session.loggedin:
-			Username: <b>$session.username</b>
-			<a href="/logout">logout</a>
-		$else:
-			You are not logged in. Wanna <a href="/login">login</a>? Or <a href="/reg">sign up</a>?
+		Username: <b>$session.username</b>
+		<a href="/logout">logout</a>
 		<hr />
+		<form method="post" action="/post">
+			<textarea cols="50" rows="5" name="body"></textarea><br />
+			<input type='submit' value='post'>
+		</form>	
 		$for message in messages:
 		<div class='message'>
 			$message.body<br /> 

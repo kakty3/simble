@@ -3,79 +3,10 @@
 import web, os, users, messages
 from urlparse import urlparse
 
-ItemsOnPage = 10
+itemsOnPage = 10
 dbName = 'blog'
 
 #web.config.debug = False
-
-def ret(a, b, c):
-	if a:
-		return b
-	else:
-		return c
-
-def validUrl(url):
-	parsed = urlparse(url)
-	if (parsed.scheme == 'http') and (parsed.path):
-		ext = parsed.path.split('/')[-1].split('.')[-1]
-		try:
-			['jpg', 'jpeg', 'gif', 'png'].index(ext.lower())
-		except ValueError:
-			return 0
-		else:
-			return 1
-	else:
-		return 0
-
-class add:
-	def GET(self):
-		if session.loggedin:
-			i = web.input()
-			print i
-			if not i:
-				return render.add()
-			try:
-				name = i.t
-				url = i.u
-			except AttributeError:
-				return 'Bad request'
-			else:
-				#return 'name=%s url=%s' % (name, url)
-				if validUrl(url):
-					print '=' * 30
-					print 'name \"%s\"' % name
-					if name:
-						n = db.insert('images', url=url, name=name, public=1, user_id=session.user_id)
-						return 'name: %s\nurl: %s\nstatus: %s' % (name, url, 'posted')
-					else:
-						return render.message("Error", "Trying to add picture without name", "try again", "/add")
-				else:
-					return render.message("Error", "Url is not valid", "try again", "/add")
-		else:
-			print 'not logged in'
-			return render.index()
-			#return "Please, login to add pictures"
-
-	def POST(self):
-		i = web.input()
-		#print i
-		try:
-			i.public
-		except:
-			public = 0
-		else:
-			public = 1
-		url = i.url
-		name  = i.name
-		print 'name \'%s\'' % name
-		if validUrl(url):
-			if name:
-				n = db.insert('images', url=i.url, name=i.name, public=public, user_id=session.user_id)
-				return render.message("Well done", "Picture was succesfully added")
-			else:
-				return render.message("Error", "Trying to add picture without name", "try again", "/add")
-		else:
-			return render.message("Error", "Url is not valid", "try again", "/add")
 
 class login:
 	def GET(self):
@@ -86,7 +17,12 @@ class login:
 	def POST(self):
 		resp = users.login(web.input())
 		if resp == 0:
-			return web.seeother('/')
+			return web.seeother('/home')
+
+class logout:
+	def GET(self):
+		users.logout()
+		return web.seeother('/')
 
 class registration:
 	def GET(self):
@@ -105,18 +41,6 @@ class registration:
 		else:
 			return 'error'
 
-class ajax:
-	def GET(self):
-		return render.ajax()
-	def POST(self):
-		i = web.input()
-		print i
-		com = i.text
-		if com == 'ping':
-			return 'pong'
-		else:
-			return 'unknown command'
-
 class post:
 	def GET(self):
 		return render.post(session)
@@ -125,42 +49,42 @@ class post:
 		i = web.input()
 		resp = messages.new(i)
 		if resp == 0:
-			return web.seeother('/')
-
-
+			return web.seeother('/home')
+''''
 def delete(id):
 	if db.delete('images', where="id=$id", vars={'id' : id}):
 		return "image id=%d deleted" % id
 	else:
 		return "no images with that id"
-
-class logout:
-	def GET(self):
-		users.logout()
-		return web.seeother('/')
+'''
 
 class home:
 	def GET(self):
 		if session.loggedin:
 			messages = list(db.select('messages', where="author=$id", vars={'id' : session.user_id}, order="created DESC"))
 			return render.home(session, messages)
+		else:
+			return web.seeother('/')
 
 class main:
 	def GET(self, page = 1):
 		print 'Request from ip %s page %s' % (web.ctx.ip, page)
-		######
-		#path = web.ctx.path
-		#print path.split('/')[1]
-		#if path and path.split('/')[1] == 'all':
-		#	gallery = list(db.select('images', order="created DESC"))
-		#else:
-		#x = list(db.select('images', order="created DESC", where="public=$true", vars={'true' : 1}))
-		#pages = len(gallery) / ImagesOnPage
-		#page = int(page)
-		#if len(gallery) % ImagesOnPage:
-		#	pages += 1
-		messages = list(db.select('messages', order="created DESC"))
-		return render.main(session, messages)
+		if session.loggedin:
+			return web.seeother('/home')
+		else:
+			######
+			#path = web.ctx.path
+			#print path.split('/')[1]
+			#if path and path.split('/')[1] == 'all':
+			#	gallery = list(db.select('images', order="created DESC"))
+			#else:
+			#x = list(db.select('images', order="created DESC", where="public=$true", vars={'true' : 1}))
+			#pages = len(gallery) / ImagesOnPage
+			#page = int(page)
+			#if len(gallery) % ImagesOnPage:
+			#	pages += 1
+			messages = list(db.select('messages', order="created DESC"))
+			return render.main(session, messages)
 
 #===================VARIABLES==========================================
 urls = (
@@ -168,7 +92,7 @@ urls = (
 	'/reg', 'registration',
 	'/login', 'login',
 	'/logout', 'logout',
-	'/post', 'post',
+	#'/post', 'post',
 	'/home', 'home'
 	#'/admin', admin.app,
 )
