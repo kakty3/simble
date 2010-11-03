@@ -24,7 +24,7 @@ def getName(id):
 	if check:
 		return check[0].name
 	else:
-		return 'No user with id=%d' % id
+		return 1
 
 def login(i):
 	print "trying to login"
