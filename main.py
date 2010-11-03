@@ -141,7 +141,9 @@ class logout:
 
 class home:
 	def GET(self):
-		return render.home(session)
+		if session.loggedin:
+			messages = list(db.select('messages', where="author=$id", vars={'id' : session.user_id}, order="created DESC"))
+			return render.home(session, messages)
 
 class main:
 	def GET(self, page = 1):
