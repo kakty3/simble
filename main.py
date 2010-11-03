@@ -43,14 +43,16 @@ class registration:
 
 class post:
 	def GET(self):
-		return render.post(session)
+		raise web.notfound()
 
 	def POST(self):
 		i = web.input()
 		resp = messages.new(i)
 		if resp == 0:
 			return web.seeother('/home')
-''''
+		else:
+			return web.seeother('/home')
+'''
 def delete(id):
 	if db.delete('images', where="id=$id", vars={'id' : id}):
 		return "image id=%d deleted" % id
@@ -92,7 +94,7 @@ urls = (
 	'/reg', 'registration',
 	'/login', 'login',
 	'/logout', 'logout',
-	#'/post', 'post',
+	'/post', 'post',
 	'/home', 'home'
 	#'/admin', admin.app,
 )
