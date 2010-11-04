@@ -52,13 +52,14 @@ class post:
 			return web.seeother('/home')
 		else:
 			return web.seeother('/home')
-'''
-def delete(id):
-	if db.delete('images', where="id=$id", vars={'id' : id}):
-		return "image id=%d deleted" % id
-	else:
-		return "no images with that id"
-'''
+
+class delete:
+	def GET(self, id):
+		resp = messages.delete(id)
+		if resp == 0:
+			return web.seeother('/')
+		else:
+			return 'something went wrong'
 
 class home:
 	def GET(self):
@@ -114,6 +115,7 @@ urls = (
 	'/logout', 'logout',
 	'/post', 'post',
 	'/post/(\d+)', 'showPost',
+	'/delete/(\d+)', 'delete',
 	'/home', 'home',
 	'/([a-z]+)', 'userPage',
 	#'/admin', admin.app,
@@ -132,7 +134,7 @@ def session_hook():
 
 app.add_processor(web.loadhook(session_hook))
 
-render = web.template.render('templates/', globals={'session': session, 'getName': users.getName})
+render = web.template.render('templates/', 'templates/js', globals={'session': session, 'getName': users.getName})
 web.ctx.render = render
 db = web.database(dbn='mysql', user='webpy', pw='webpy', db=dbName)
 
