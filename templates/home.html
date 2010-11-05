@@ -3,41 +3,28 @@ $def with (session, messages)
 <html>
 	<head>
 		<title>blog</title>
-		<link rel="shortcut icon" type="image/ico" href="/static/favicon.ico" /> 
+		<link rel="shortcut icon" type="image/ico" href="/static/favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="/static/css/main.css">
 		<script type="text/javascript" src="/static/js/jquery.js"></script>
 		<script type="text/javascript" src="/static/js/message.js"></script>
 		<script>
 		</script>
 		<style type="text/css">
-			.message {
-				border: 1px solid #4A83A8;
-				padding: 5px;
-				margin-bottom: 15px;
-				overflow: auto;
-				text-align: left;
-			}
-			a {
-				text-decoration: none;
-			}
-			a:hover {
-				border-bottom: 1px dashed;
-			}
 			textarea {
 				resize: none;
-			}
-			body {
-				width: 500px;
+				width: 100%;
+				margin-bottom: 5px;
 			}
 		</style>
 	</head>
 
 	<body>
-		<span style="border: 2px solid black; padding: 2px; font-weight: bold;">simple blog engine</span>
+		<span class="logo">simple blog engine</span>
 		Username: <b>$session.username</b>
 		<a href="/logout">logout</a>
 		<hr />
 		<form method="post" action="/post" onSubmit="if (post() == false) {return false;}">
-			<textarea cols="40" rows="5" name="body" id="input"></textarea><br />
+			<textarea cols="40" rows="4" name="body" id="input"></textarea><br />
 			<input type='submit' value='post'>
 		</form>	
 		$for message in messages:

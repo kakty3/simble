@@ -1,6 +1,6 @@
 #!/usr/bin/python 
 
-import web, os, users, messages
+import web, os, users, messages, admin
 from urlparse import urlparse
 
 itemsOnPage = 10
@@ -52,8 +52,8 @@ class post:
 			return web.seeother('/home')
 		else:
 			return web.seeother('/home')
-
 class delete:
+	'''
 	def GET(self,):
 		resp = messages.delete(id)
 		if resp == 0:
@@ -61,16 +61,21 @@ class delete:
 			#return web.seeother('/')
 		else:
 			return 'something went wrong'
+	'''
 
 	def POST(self):
 		print web.input()
 		id = web.input().id
-		resp = messages.delete(id)
-		if resp == 0:
-			return 0
-			#return web.seeother('/')
+		message = messages.search(id=id)
+		if message and message[0].author == session.user_id:
+			resp = messages.delete(id)
+			if resp == 0:
+				return 0
+				#return web.seeother('/')
+			else:
+				return 1
 		else:
-			return 'something went wrong'
+			return 'you can\'t delete this post'
 
 class home:
 	def GET(self):
@@ -83,9 +88,11 @@ class home:
 class main:
 	def GET(self, page = 1):
 		print 'Request from ip %s page %s' % (web.ctx.ip, page)
+		'''
 		if session.loggedin:
 			return web.seeother('/home')
 		else:
+		'''
 			######
 			#path = web.ctx.path
 			#print path.split('/')[1]
@@ -97,8 +104,8 @@ class main:
 			#page = int(page)
 			#if len(gallery) % ImagesOnPage:
 			#	pages += 1
-			messages = list(db.select('messages', order="created DESC"))
-			return render.main(session, messages)
+		messages = list(db.select('messages', order="created DESC"))
+		return render.main(session, messages)
 
 class userPage:
 	def GET(self, userName):
@@ -128,11 +135,13 @@ urls = (
 	'/post/(\d+)', 'showPost',
 	'/delete', 'delete',
 	'/home', 'home',
-	'/([a-z]+)', 'userPage',
+	'/admin', admin.app,
+	'/([a-z0-9]+)', 'userPage',
 	#'/admin', admin.app,
 )
 
 app = web.application(urls, globals())
+
 if web.config.get('_session') is None:
 	session = web.session.Session(app, web.session.DiskStore('sessions'), initializer = {'username': None, 'loggedin': False, 'user_id': -1, 'permission': 0})
 	web.config._session = session

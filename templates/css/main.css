@@ -1,0 +1,29 @@
+body {
+	padding-left: 400px;
+	width: 500px;
+}
+
+.message {
+	border: 1px solid #4A83A8;
+	padding: 10px;
+	margin-bottom: 15px;
+	overflow: auto;
+	text-align: left;
+	overflow: hidden
+}
+
+.logo {
+	border: 2px solid black;
+	padding: 2px;
+	font-weight: bold;
+	background: #0481C4;
+	color: #FFFFFF; 
+}
+
+a {
+	text-decoration: none;
+	color: #5AA1C7;
+}
+a:hover {
+	border-bottom: 1px dashed;
+}

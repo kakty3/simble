@@ -4,8 +4,11 @@
 			data: 'id=' + id,
 			url: '../delete',
 			success: function(data) {
-				alert('succes!');
-				location.reload(true);
+				if (data == 0) {
+					alert('succes!');
+					location.reload(true);
+				}
+				else alert('error!');
 			}
 		});
 	}
