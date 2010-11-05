@@ -19,7 +19,7 @@ def addUser(name, password):
 	else:
 		return 1
 
-def search(**request):
+def getUser(**request):
 	x = request.keys()[0]
 	w = ('%s=$%s') % (x, x)
 	v = {x : request[x]}
@@ -30,22 +30,26 @@ def search(**request):
 	print v
 	users = db.select('users', where=w, vars=v)
 	print len(users)
-	return users
+	if len(users):
+		return users[0]
+	else:
+		return -1
 
 def getName(id):
 	#check = db.select('users', where="id=$id", vars={'id' : id})
-	check = db.select('users', where="id=$id", vars={'id' : id})
-	if check:
-		return check[0].name
+	user = seach(id = id)
+	if user:
+		return user[0].name
 	else:
 		return 1
-
+'''
 def getId(name):
 	check = db.select('users', where="name=$name", vars={'name' : name})
 	if check:
 		return check[0].id
 	else:
 		return -1
+'''
 
 def login(i):
 	print "trying to login"

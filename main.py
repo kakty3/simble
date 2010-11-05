@@ -109,12 +109,12 @@ class main:
 
 class userPage:
 	def GET(self, userName):
-		userId = users.getId(userName)
+		userId = users.getUser(name = userName).id
 		if userId == -1:
 			return 'No user with this name'
 		else:
 			messages = list(db.select('messages', where="author=$id", vars={'id' : userId}, order="created DESC"))
-			print messages
+			#print messages
 			return render.user(session, messages, userName)
 
 class showPost:
