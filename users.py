@@ -19,7 +19,21 @@ def addUser(name, password):
 	else:
 		return 1
 
+def search(**request):
+	x = request.keys()[0]
+	w = ('%s=$%s') % (x, x)
+	v = {x : request[x]}
+	for k in request.keys()[1:]:
+		w = ('%s AND %s=$%s') % (w, k, k)
+		v[k] = request[k]
+	print w
+	print v
+	users = db.select('users', where=w, vars=v)
+	print len(users)
+	return users
+
 def getName(id):
+	#check = db.select('users', where="id=$id", vars={'id' : id})
 	check = db.select('users', where="id=$id", vars={'id' : id})
 	if check:
 		return check[0].name
@@ -51,6 +65,8 @@ def logout():
 	session = web.ctx.session
 	session.kill()
 	return 0
+
 if __name__ ==  '__main__':
 	#print getName(2)
 	pass
+	search(id = 3, name = 'sergey')

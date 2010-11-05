@@ -30,7 +30,8 @@ $def with (session, messages)
 		$for message in messages:
 		<div class='message'>
 			$message.body<br /> 
-			<span style="font-size: 12px; color:#B0B0B0">Posted on $message.created.strftime("%B %d at %H:%M") by 
+			<a href="../post/$message.id"><span style="font-size: 12px; color:#B0B0B0">Posted on $message.created.strftime("%B %d at %H:%M")</span></a>
+			<span style="font-size: 12px; color:#B0B0B0">by 
 				$ name = getName(message.author)
 				$if name == session.username:
 					<a href="/home">you</a>
