@@ -37,11 +37,9 @@ def getUser(**request):
 
 def getName(id):
 	#check = db.select('users', where="id=$id", vars={'id' : id})
-	user = seach(id = id)
-	if user:
-		return user[0].name
-	else:
-		return 1
+	user = getUser(id = id)
+	print user
+	return user.name
 '''
 def getId(name):
 	check = db.select('users', where="name=$name", vars={'name' : name})
@@ -50,6 +48,7 @@ def getId(name):
 	else:
 		return -1
 '''
+
 
 def login(i):
 	print "trying to login"
@@ -63,7 +62,7 @@ def login(i):
 		session.user_id = user.id
 		return 0
 	else:
-		return "Password or username is incorrect"
+		return 1
 
 def logout():
 	session = web.ctx.session

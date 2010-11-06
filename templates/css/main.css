@@ -9,7 +9,8 @@ body {
 	margin-bottom: 15px;
 	overflow: auto;
 	text-align: left;
-	overflow: hidden
+	overflow: hidden;
+	clear: both;
 }
 
 .logo {

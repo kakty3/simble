@@ -16,8 +16,7 @@ class login:
 			return 'allready logge in'
 	def POST(self):
 		resp = users.login(web.input())
-		if resp == 0:
-			return web.seeother('/home')
+		return resp
 
 class logout:
 	def GET(self):

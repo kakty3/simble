@@ -5,7 +5,11 @@ $def with (session, messages)
 		<title>blog</title>
 		<link rel="shortcut icon" type="image/ico" href="/static/favicon.ico" /> 
 		<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+		<script type="text/javascript" src="/static/js/jquery.js"></script>
+		<script type="text/javascript" src="/static/js/user.js"></script>
 		<script>
+			$$(function(){
+			});
 		</script>
 		<style type="text/css">
 			.right {
@@ -13,6 +17,15 @@ $def with (session, messages)
 			}
 			#top-nav {
 				height: 20px;
+			}
+			hr {
+				margin-bottom: 5px;
+			}
+			#login-bar {
+				margin: 0px 5px 10px 0px;
+				display: none;
+				height: 20px;
+				float: right;
 			}
 		</style>
 	</head>
@@ -24,9 +37,12 @@ $def with (session, messages)
 				[img] <b>$session.username</b>
 				<span class="right"><a href="/logout">logout</a></span>
 			$else:
-				<span class="right"><a href="/login">Sign in</a> | <a href="/reg">Sign up</a></span>
+			<span class='right'><span onClick="$$('#login-bar').slideToggle()">Sign in</span>|<a href="/reg">Sign up</a></span>
 		</div>
 		<hr />
+		<div id="login-bar" >
+			<input id='login' type=text style="border: 1px solid #51A2E8;"><input id='password' type=password style="border: 1px solid #51A2E8;"><input type=button value=login onClick="login($$('#login')[0].value, $$('#password')[0].value)">
+		</div>
 		$for message in messages:
 		<div class='message'>
 			$message.body<br /> 

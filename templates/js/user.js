@@ -1,8 +1,8 @@
-function deletePost(id){
+function login(name, pswd){
 	$.ajax({
 		type: "POST",
-		data: 'id=' + id,
-		url: '../delete',
+		data: 'username=' + name +'&password=' + pswd,
+		url: '../login',
 		success: function(data) {
 			if (data == 0) {
 				alert('succes!');
