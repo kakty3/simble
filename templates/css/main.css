@@ -19,6 +19,7 @@ body {
 	font-weight: bold;
 	background: #0481C4;
 	color: #FFFFFF; 
+	cursor: pointer;
 }
 
 a {
@@ -48,4 +49,8 @@ a:hover {
 	height: 25px;
 	border-bottom: 1px solid #80AEBA;
 	margin-bottom: 5px;
+}
+
+.right {
+	float: right;
 }

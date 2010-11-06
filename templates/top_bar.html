@@ -1,7 +1,7 @@
 $def with (session)
 
 		<div id="top-nav">
-			<span class="logo">simple blog engine</span>
+			<span class="logo" onClick="window.location = window.location.origin">simple blog engine</span>
 			$if session.loggedin:
 				[img] <b>$session.username</b>
 				<span class="right button" onClick="window.location = './logout'">logout</span>

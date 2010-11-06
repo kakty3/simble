@@ -155,7 +155,10 @@ def session_hook():
 
 app.add_processor(web.loadhook(session_hook))
 
-render = web.template.render('templates/',  globals={'session': session, 'getName': users.getName, 'render' : render})
+global_vars = {'session': session, 'getName': users.getName, }
+render = web.template.render('templates/', globals = global_vars)
+global_vars['render'] = render
+#render = web.template.render('templates/',  globals={'session': session, 'getName': users.getName, 'render' : render, 'home' : web.ctx.home})
 web.ctx.render = render
 db = web.database(dbn='mysql', user='webpy', pw='webpy', db=dbName)
 
@@ -163,3 +166,4 @@ db = web.database(dbn='mysql', user='webpy', pw='webpy', db=dbName)
 
 if __name__ == "__main__":
 	app.run()
+
