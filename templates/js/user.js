@@ -2,11 +2,11 @@ function login(name, pswd){
 	$.ajax({
 		type: "POST",
 		data: 'username=' + name +'&password=' + pswd,
-		url: '../login',
+		url: './login',
 		success: function(data) {
 			if (data == 0) {
 				alert('succes!');
-				location.reload(true);
+				window.location = '/home';
 			}
 			else alert('error!');
 		}

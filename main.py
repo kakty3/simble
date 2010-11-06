@@ -9,11 +9,13 @@ dbName = 'blog'
 #web.config.debug = False
 
 class login:
+	'''
 	def GET(self):
 		if not session.loggedin:
 			return render.login()
 		else:
 			return 'allready logge in'
+	'''
 	def POST(self):
 		resp = users.login(web.input())
 		return resp
@@ -104,7 +106,7 @@ class main:
 			#if len(gallery) % ImagesOnPage:
 			#	pages += 1
 		messages = list(db.select('messages', order="created DESC"))
-		return render.main(session, messages)
+		return render.main(session, messages, render)
 
 class userPage:
 	def GET(self, userName):

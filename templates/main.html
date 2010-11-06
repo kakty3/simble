@@ -1,4 +1,4 @@
-$def with (session, messages)
+$def with (session, messages, render)
 
 <html>
 	<head>
@@ -16,7 +16,9 @@ $def with (session, messages)
 				float: right;
 			}
 			#top-nav {
-				height: 20px;
+				height: 25px;
+				border-bottom: 1px solid #80AEBA;
+				margin-bottom: 5px;
 			}
 			hr {
 				margin-bottom: 5px;
@@ -27,22 +29,32 @@ $def with (session, messages)
 				height: 20px;
 				float: right;
 			}
+			.button {
+				font-weight: bold;
+				color: #0481C4;
+				padding: 2px;
+			}
+			.button:hover {
+				background: #0481C4;
+				color: #FFFFFF;
+				cursor: pointer;
+			}
 		</style>
 	</head>
 
 	<body>
-		<div id="top-nav">
+		$:render.top_bar(session)
+		<!--<div id="top-nav">
 			<span class="logo">simple blog engine</span>
 			$if session.loggedin:
 				[img] <b>$session.username</b>
 				<span class="right"><a href="/logout">logout</a></span>
 			$else:
-			<span class='right'><span onClick="$$('#login-bar').slideToggle()">Sign in</span>|<a href="/reg">Sign up</a></span>
+			<span class='right' ><span class='button' onClick="$$('#login-bar').slideToggle()">log in</span> <span style='font-size: 17px; color: #80AEBA'>or</span> <span class='button'>sign up</span>
 		</div>
-		<hr />
 		<div id="login-bar" >
-			<input id='login' type=text style="border: 1px solid #51A2E8;"><input id='password' type=password style="border: 1px solid #51A2E8;"><input type=button value=login onClick="login($$('#login')[0].value, $$('#password')[0].value)">
-		</div>
+			<input id='login' type=text style="border: 1px solid #51A2E8;"><input id='password' type=password style="border: 1px solid #51A2E8;"><span onClick="login($$('#login')[0].value, $$('#password')[0].value)" class='button'>hammertime!</span>
+		</div>-->
 		$for message in messages:
 		<div class='message'>
 			$message.body<br /> 
