@@ -94,19 +94,19 @@ class main:
 			return web.seeother('/home')
 		else:
 		'''
-			######
-			#path = web.ctx.path
-			#print path.split('/')[1]
-			#if path and path.split('/')[1] == 'all':
-			#	gallery = list(db.select('images', order="created DESC"))
-			#else:
-			#x = list(db.select('images', order="created DESC", where="public=$true", vars={'true' : 1}))
-			#pages = len(gallery) / ImagesOnPage
-			#page = int(page)
-			#if len(gallery) % ImagesOnPage:
-			#	pages += 1
+		######
+		#path = web.ctx.path
+		#print path.split('/')[1]
+		#if path and path.split('/')[1] == 'all':
+		#	gallery = list(db.select('images', order="created DESC"))
+		#else:
+		#x = list(db.select('images', order="created DESC", where="public=$true", vars={'true' : 1}))
+		#pages = len(gallery) / ImagesOnPage
+		#page = int(page)
+		#if len(gallery) % ImagesOnPage:
+		#	pages += 1
 		messages = list(db.select('messages', order="created DESC"))
-		return render.main(session, messages, render)
+		return render.main(session, messages)
 
 class userPage:
 	def GET(self, userName):
@@ -155,7 +155,7 @@ def session_hook():
 
 app.add_processor(web.loadhook(session_hook))
 
-render = web.template.render('templates/',  globals={'session': session, 'getName': users.getName})
+render = web.template.render('templates/',  globals={'session': session, 'getName': users.getName, 'render' : render})
 web.ctx.render = render
 db = web.database(dbn='mysql', user='webpy', pw='webpy', db=dbName)
 

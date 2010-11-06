@@ -1,4 +1,4 @@
-$def with (session, messages, render)
+$def with (session, messages)
 
 <html>
 	<head>
@@ -15,29 +15,8 @@ $def with (session, messages, render)
 			.right {
 				float: right;
 			}
-			#top-nav {
-				height: 25px;
-				border-bottom: 1px solid #80AEBA;
-				margin-bottom: 5px;
-			}
 			hr {
 				margin-bottom: 5px;
-			}
-			#login-bar {
-				margin: 0px 5px 10px 0px;
-				display: none;
-				height: 20px;
-				float: right;
-			}
-			.button {
-				font-weight: bold;
-				color: #0481C4;
-				padding: 2px;
-			}
-			.button:hover {
-				background: #0481C4;
-				color: #FFFFFF;
-				cursor: pointer;
 			}
 		</style>
 	</head>
@@ -46,10 +25,10 @@ $def with (session, messages, render)
 		$:render.top_bar(session)
 		<!--<div id="top-nav">
 			<span class="logo">simple blog engine</span>
-			$if session.loggedin:
+		$if session.loggedin:
 				[img] <b>$session.username</b>
 				<span class="right"><a href="/logout">logout</a></span>
-			$else:
+		$else:
 			<span class='right' ><span class='button' onClick="$$('#login-bar').slideToggle()">log in</span> <span style='font-size: 17px; color: #80AEBA'>or</span> <span class='button'>sign up</span>
 		</div>
 		<div id="login-bar" >

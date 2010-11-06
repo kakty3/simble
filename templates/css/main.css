@@ -28,3 +28,24 @@ a {
 a:hover {
 	border-bottom: 1px dashed;
 }
+.button {
+	font-weight: bold;
+	color: #0481C4;
+	padding: 2px;
+}
+.button:hover {
+	background: #0481C4;
+	color: #FFFFFF;
+	cursor: pointer;
+}
+#login-bar {
+	margin: 0px 5px 10px 0px;
+	display: none;
+	height: 20px;
+	float: right;
+}
+#top-nav {
+	height: 25px;
+	border-bottom: 1px solid #80AEBA;
+	margin-bottom: 5px;
+}
