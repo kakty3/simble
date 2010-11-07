@@ -20,10 +20,6 @@ $def with (session, messages)
 
 	<body>
 		$:render.top_bar(session)
-		<!--<span class="logo">simple blog engine</span>
-		Username: <b>$session.username</b>
-		<span class="right"><a href="/logout">logout</a></span>
-		<hr />-->
 		<form method="post" action="/post" onSubmit="if (post() == false) {return false;}">
 			<textarea cols="40" rows="4" name="body" id="input"></textarea><br />
 			<input type='submit' value='post'>

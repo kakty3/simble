@@ -10,5 +10,13 @@ $def with (session)
 		</div>
 			$if not session.loggedin:
 				<div id="login-bar" >
-					<input id='login' type=text style="border: 1px solid #51A2E8;"><input id='password' type=password style="border: 1px solid #51A2E8;"><span onClick="login($$('#login')[0].value, $$('#password')[0].value)" class='button'>hammertime!</span>
+					<input id='login' type=text style="border: 1px solid #51A2E8;"><input id='password' type=password style="border: 1px solid #51A2E8;"><span id='login_button' onClick="login($$('#login')[0].value, $$('#password')[0].value)" class='button'>hammertime!</span>
 				</div>
+		<script>$$('#login, #password').each(
+					function(){
+						$$(this).keyup(function(e) {
+							if(e.keyCode == 13) { $$('#login_button').click(); }
+						});
+					}
+				);
+		</script>

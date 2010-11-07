@@ -17,17 +17,6 @@ $def with (session, messages)
 
 	<body>
 		$:render.top_bar(session)
-		<!--<div id="top-nav">
-			<span class="logo">simple blog engine</span>
-		$if session.loggedin:
-				[img] <b>$session.username</b>
-				<span class="right"><a href="/logout">logout</a></span>
-		$else:
-			<span class='right' ><span class='button' onClick="$$('#login-bar').slideToggle()">log in</span> <span style='font-size: 17px; color: #80AEBA'>or</span> <span class='button'>sign up</span>
-		</div>
-		<div id="login-bar" >
-			<input id='login' type=text style="border: 1px solid #51A2E8;"><input id='password' type=password style="border: 1px solid #51A2E8;"><span onClick="login($$('#login')[0].value, $$('#password')[0].value)" class='button'>hammertime!</span>
-		</div>-->
 		$for message in messages:
 		<div class='message'>
 			$message.body<br /> 
