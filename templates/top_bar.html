@@ -6,7 +6,7 @@ $def with (session)
 				[img] <b>$session.username</b>
 				<span class="right button" onClick="window.location = './logout'">logout</span>
 			$else:
-			<span class='right' ><span class='button' onClick="$$('#login-bar').slideToggle()">log in</span> <span style='font-size: 17px; color: #80AEBA'>or</span> <span class='button'>sign up</span>
+			<span class='right' ><span class='button' onClick="$$('#login-bar').slideToggle(); $$('#login').focus()">log in</span> <span style='font-size: 17px; color: #80AEBA'>or</span> <span class='button'>sign up</span>
 		</div>
 			$if not session.loggedin:
 				<div id="login-bar" >

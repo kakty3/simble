@@ -82,7 +82,7 @@ class home:
 	def GET(self):
 		if session.loggedin:
 			messages = list(db.select('messages', where="author=$id", vars={'id' : session.user_id}, order="created DESC"))
-			return render.home(session, messages)
+			return render.home (messages)
 		else:
 			return web.seeother('/')
 
@@ -106,7 +106,7 @@ class main:
 		#if len(gallery) % ImagesOnPage:
 		#	pages += 1
 		messages = list(db.select('messages', order="created DESC"))
-		return render.main(session, messages)
+		return render.main(messages)
 
 class userPage:
 	def GET(self, userName):
@@ -116,13 +116,13 @@ class userPage:
 		else:
 			messages = list(db.select('messages', where="author=$id", vars={'id' : userId}, order="created DESC"))
 			#print messages
-			return render.user(session, messages, userName)
+			return render.user(messages, userName)
 
 class showPost:
 	def GET(self, id):
 		message = messages.search(id = id)
 		if message:
-			return render.post(session, message[0])
+			return render.post(message[0])
 		else:
 			return 'no post with this id'
 
@@ -171,6 +171,6 @@ web.config.smtp_starttls = True
 #=======================================================================
 
 if __name__ == "__main__":
-	web.sendmail('kakty3.mail@gmail.com', 'kakty3nsk@yandex.ru', 'webpy mail test', '<html><span style="backgroud:#8997D9; color: #FFFFFF; font-weight: bold">Hello, world!</span></html>')
+	#web.sendmail('kakty3.mail@gmail.com', 'kakty3nsk@yandex.ru', 'webpy mail test', '<html><span style="backgroud:#8997D9; color: #FFFFFF; font-weight: bold">Hello, world!</span></html>')
 	app.run()
 
