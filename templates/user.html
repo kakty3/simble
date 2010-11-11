@@ -14,18 +14,7 @@ $def with (messages, user)
 	</head>
 
 	<body>
-		<span class="logo" >simple blog engine</span>
-		<!--
-		Username: <b>$session.username</b>
-		<a href="/logout">logout</a>
-		<hr />
-		<form method="post" action="/post">
-			<textarea cols="40" rows="5" name="body"></textarea><br />
-			<input type='submit' value='post'>
-		</form>
-		-->
-		<b>$user</b><br />
-		<hr />
+		$:render.top_bar(session)
 		$for message in messages:
 		<div class='message'>
 			$message.body<br /> 
