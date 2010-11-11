@@ -3,16 +3,6 @@ body {
 	width: 500px;
 }
 
-.message {
-	border: 1px solid #4A83A8;
-	padding: 8px;
-	margin-bottom: 15px;
-	overflow: auto;
-	text-align: left;
-	overflow: hidden;
-	clear: both;
-}
-
 .logo {
 	#border: 1px solid black;
 	padding: 4px;

@@ -5,7 +5,9 @@ $def with (messages)
 		<title>blog</title>
 		<link rel="shortcut icon" type="image/ico" href="/static/favicon.ico" />
 		<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/message.css">
 		<script type="text/javascript" src="/static/js/jquery.js"></script>
+		<script type="text/javascript" src="/static/js/main.js"></script>
 		<script type="text/javascript" src="/static/js/message.js"></script>
 		<script>
 		</script>
@@ -25,7 +27,7 @@ $def with (messages)
 			<input type='submit' value='post'>
 		</form>	
 		$for message in messages:
-			$:render.message(message, {'Author' : False,} )
+			$:render.message(message, {'time' : True, 'author' : False, 'delete' : True,} )
 		<!--
 		<div class='message'>
 			$message.body<br /> 
