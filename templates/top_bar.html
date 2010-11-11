@@ -10,7 +10,7 @@ $def with (session)
 		</div>
 			$if not session.loggedin:
 				<div id="login-bar" >
-					<input id='login' type=text style="border: 1px solid #51A2E8;"><input id='password' type=password style="border: 1px solid #51A2E8;"><span id='login_button' onClick="login($$('#login')[0].value, $$('#password')[0].value)" class='button'>hammertime!</span>
+					<input id='login' type=text style="border: 1px solid #51A2E8; font-size: 12px; width: 150px;">&nbsp;<input id='password' type=password style="border: 1px solid #51A2E8; font-size: 12px; width: 150px;">&nbsp;<span id='login_button' onClick="login($$('#login')[0].value, $$('#password')[0].value)" class='button'>→</span>
 				</div>
 		<script>$$('#login, #password').each(
 					function(){

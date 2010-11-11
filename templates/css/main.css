@@ -30,6 +30,7 @@ a:hover {
 	border-bottom: 1px dashed;
 }
 .button {
+	font-size: 14px;
 	font-weight: bold;
 	color: #0481C4;
 	padding: 2px;
