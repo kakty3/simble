@@ -5,7 +5,9 @@ $def with (messages)
 		<title>blog</title>
 		<link rel="shortcut icon" type="image/ico" href="/static/favicon.ico" />
 		<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/message.css">
 		<script type="text/javascript" src="/static/js/jquery.js"></script>
+		<script type="text/javascript" src="/static/js/main.js"></script>
 		<script type="text/javascript" src="/static/js/message.js"></script>
 		<script>
 		</script>
@@ -19,16 +21,19 @@ $def with (messages)
 	</head>
 
 	<body>
-		$:render.top_bar(session)
+		$:render.top_bar()
 		<form method="post" action="/post" onSubmit="if (post() == false) {return false;}">
 			<textarea cols="40" rows="4" name="body" id="input"></textarea><br />
 			<input type='submit' value='post'>
 		</form>	
 		$for message in messages:
+			$:render.message(message, {'time' : True, 'author' : False, 'delete' : True,} )
+		<!--
 		<div class='message'>
 			$message.body<br /> 
 			<a href="../post/$message.id"><span style="font-size: 12px; color:#B0B0B0">Posted on $message.created.strftime("%B %d at %H:%M")</span></a>
 			<span onClick="if (confirm('A you shure? You can\'t undelete message!')) deletePost($message.id);" style="float: right; font-size: 12px; color:#B0B0B0">delete</span>
 		</div>
+		-->
 	</body>
 </html>

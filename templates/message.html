@@ -1,0 +1,8 @@
+$def with (message, params)
+
+	<div class='message'>
+		<div style='margin-bottom: 7px;'>$message.body</div> 
+		<a href="../post/$message.id"><span class='in_message' >Posted on $message.created.strftime("%B %d at %H:%M")</span></a>
+		$if params['delete']:
+			<span class='in_message' onClick="if (confirm('A you shure? You can\'t undelete message!')) deletePost($message.id);" style="float: right; display: none;">delete</span>
+	</div>

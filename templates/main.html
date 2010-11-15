@@ -8,15 +8,13 @@ $def with (messages)
 		<script type="text/javascript" src="/static/js/jquery.js"></script>
 		<script type="text/javascript" src="/static/js/user.js"></script>
 		<script>
-			$$(function(){
-			});
 		</script>
 		<style type="text/css">
 		</style>
 	</head>
 
 	<body>
-		$:render.top_bar(session)
+		$:render.top_bar()
 		$for message in messages:
 		<div class='message'>
 			$message.body<br /> 

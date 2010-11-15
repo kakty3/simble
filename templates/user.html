@@ -14,7 +14,7 @@ $def with (messages, user)
 	</head>
 
 	<body>
-		$:render.top_bar(session)
+		$:render.top_bar()
 		$for message in messages:
 		<div class='message'>
 			$message.body<br /> 

@@ -1,0 +1,23 @@
+.message {
+	border: 1px solid #4A83A8;
+	padding: 8px;
+	margin-bottom: 15px;
+	overflow: auto;
+	text-align: left;
+	overflow: hidden;
+	clear: both;
+}
+
+.message:hover {
+	background: #D8DFF2; 
+}
+
+.in_message {
+	font-size: 12px; 
+	color:#B0B0B0;
+	margin-bottom: -1px;
+}
+
+.in_message:hover {
+	border-bottom: 1px solid #B0B0B0; 
+}
