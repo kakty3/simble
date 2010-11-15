@@ -16,17 +16,23 @@ a {
 	text-decoration: none;
 	color: #5AA1C7;
 }
+<<<<<<< .merge_file_fSWAx1
+=======
+
+>>>>>>> .merge_file_9LKCxX
 .button {
 	font-size: 14px;
 	font-weight: bold;
 	color: #0481C4;
 	padding: 2px;
 }
+
 .button:hover {
 	background: #0481C4;
 	color: #FFFFFF;
 	cursor: pointer;
 }
+
 #login-bar {
 	margin: 0px 5px 10px 0px;
 	display: none;

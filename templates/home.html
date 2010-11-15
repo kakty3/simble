@@ -7,9 +7,13 @@ $def with (messages)
 		<link rel="stylesheet" type="text/css" href="/static/css/main.css">
 		<link rel="stylesheet" type="text/css" href="/static/css/message.css">
 		<script type="text/javascript" src="/static/js/jquery.js"></script>
+		<script type="text/javascript" src="/static/js/corner.js"></script>
 		<script type="text/javascript" src="/static/js/main.js"></script>
 		<script type="text/javascript" src="/static/js/message.js"></script>
 		<script>
+			$$(function(){
+				$$('.message').corner('5px')
+			});
 		</script>
 		<style type="text/css">
 			textarea {
