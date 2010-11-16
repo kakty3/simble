@@ -78,6 +78,7 @@ class delete:
 		else:
 			return 'you can\'t delete this post'
 
+
 class home:
 	def GET(self):
 		if session.loggedin:

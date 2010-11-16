@@ -5,9 +5,14 @@ $def with (messages)
 		<title>blog</title>
 		<link rel="shortcut icon" type="image/ico" href="/static/favicon.ico" /> 
 		<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/message.css">
 		<script type="text/javascript" src="/static/js/jquery.js"></script>
 		<script type="text/javascript" src="/static/js/user.js"></script>
+		<script type="text/javascript" src="/static/js/corner.js"></script>
 		<script>
+			$$(function(){
+				$$('.message').corner('5px')
+			});
 		</script>
 		<style type="text/css">
 		</style>
@@ -16,7 +21,8 @@ $def with (messages)
 	<body>
 		$:render.top_bar()
 		$for message in messages:
-		<div class='message'>
+			$:render.message(message, {'time' : True, 'author' : True, 'delete' : False} )
+		<!--<div class='message'>
 			$message.body<br /> 
 			<a href="../post/$message.id"><span style="font-size: 12px; color:#B0B0B0">Posted on $message.created.strftime("%B %d at %H:%M")</span></a>
 			<span style="font-size: 12px; color:#B0B0B0">by 
@@ -26,6 +32,6 @@ $def with (messages)
 				$else:
 					<a href="/$name">$name</a>
 			</span>
-		</div>
+		</div>-->
 	</body>
 </html>
