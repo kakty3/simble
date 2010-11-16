@@ -111,13 +111,18 @@ class main:
 
 class userPage:
 	def GET(self, userName):
-		userId = users.getUser(name = userName).id
-		if userId == -1:
-			return 'No user with this name'
+		resp = users.getUser(name = userName)
+		print '<<RESP>>', resp
+		if resp == 0:
+			userId = resp.id
+			if userId == -1:
+				return 'No user with this name'
+			else:
+				messages = list(db.select('messages', where="author=$id", vars={'id' : userId}, order="created DESC"))
+				#print messages
+				return render.user(messages, userName)
 		else:
-			messages = list(db.select('messages', where="author=$id", vars={'id' : userId}, order="created DESC"))
-			#print messages
-			return render.user(messages, userName)
+			return 'no user with this name'
 
 class showPost:
 	def GET(self, id):
