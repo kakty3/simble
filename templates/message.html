@@ -1,6 +1,6 @@
-$def with (message, params)
+$def with (message,  params)
 
-	<div class='message'>
+	<div class='message' id='$message.id'>
 		<div style='margin-bottom: 7px; word-break:break-all'>$message.body</div> 
 		<a href="../post/$message.id"><span class='in_message' >Posted on $message.created.strftime("%B %d at %H:%M")</span></a>
 		$if params['author']:

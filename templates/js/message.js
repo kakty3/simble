@@ -5,8 +5,9 @@ function deletePost(id){
 		url: '../delete',
 		success: function(data) {
 			if (data == 0) {
-				alert('succes!');
-				location.reload(true);
+				//alert('succes!');
+				$('#' + id).fadeOut(500);
+				//location.reload(true);
 			}
 			else alert('error!');
 		}

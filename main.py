@@ -83,7 +83,7 @@ class home:
 	def GET(self):
 		if session.loggedin:
 			messages = list(db.select('messages', where="author=$id", vars={'id' : session.user_id}, order="created DESC"))
-			return render.home (messages)
+			return render.home(messages)
 		else:
 			return web.seeother('/')
 
