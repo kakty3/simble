@@ -13,18 +13,25 @@ $def with (messages)
 		<script type="text/javascript" src="/static/js/jquery.form.js"></script>
 		<script>
 			$$(document).ready(function(){
-				var options = {
-					url: "/post",
-					success: function() {
-						alert("Спасибо за комментарий!");
-					}
-				};
-				$$("#form").submit(function() {
-					$$("#form").ajaxSubmit(options);
-					return false;
-				});
 				$$('.message').corner('5px');
 			});
+			
+			var options = {
+				url: "/post",
+				success: function() {
+					$$("#message").val('');
+					$$('#submit-button').html('posted')
+					$$('#img-loader').hide();
+					alert("Спасибо за комментарий!");
+				}
+			};
+
+			function formSubmit() {
+				$$('#submit-button').html('posting...');
+				$$('#img-loader').show();
+				$$("#form").ajaxSubmit(options);
+				return false;
+			};
 		</script>
 		<style type="text/css">
 			textarea {
@@ -37,9 +44,9 @@ $def with (messages)
 
 	<body>
 		$:render.top_bar()
-		<form method='post' action='/post' id='form'>
-			<textarea cols="40" rows="4" name="body"></textarea><br />
-			<input type='submit' value='post'>
+		<form name='myform' method='post' action='/post' id='form'>
+			<textarea cols="40" rows="4" name="body" id='message'></textarea><br />
+			<img id='img-loader' style='display: none' src='/static/ajax-loader.gif'><span class='button' onClick='formSubmit()' id='submit-button'>post</span>
 		</form>	
 		$for message in messages:
 			$:render.message(message, {'time' : True, 'author' : False, 'delete' : True,} )
