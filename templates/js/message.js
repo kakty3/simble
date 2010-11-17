@@ -5,9 +5,10 @@ function deletePost(id){
 		url: '../delete',
 		success: function(data) {
 			if (data == 0) {
-				//alert('succes!');
 				$('#' + id).fadeOut(500);
-				//location.reload(true);
+				setTimeout(function() {$('#' + id).remove()}, 1000);
+				//while (!$('#' + id).css('visibility') == 'none') {}
+				//$('#' + id).remove();
 			}
 			else alert('error!');
 		}
