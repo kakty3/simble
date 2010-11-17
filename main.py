@@ -48,11 +48,14 @@ class post:
 
 	def POST(self):
 		i = web.input()
+		print '<<POST>>', i
 		resp = messages.new(i)
 		if resp == 0:
 			return web.seeother('/home')
 		else:
 			return web.seeother('/home')
+
+
 class delete:
 	'''
 	def GET(self,):

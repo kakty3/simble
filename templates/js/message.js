@@ -13,3 +13,21 @@ function deletePost(id){
 		}
 	});
 }
+
+
+function newPost(input){
+	alert(input);
+	$.ajax({
+		type: "POST",
+		data: input,
+		url: '../post',
+		success: function(data) {
+			if (data == 0) {
+				alert('succes!');
+				//$('#' + id).fadeOut(500);
+				//location.reload(true);
+			}
+			else alert('error!');
+		}
+	});
+}

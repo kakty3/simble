@@ -10,9 +10,20 @@ $def with (messages)
 		<script type="text/javascript" src="/static/js/corner.js"></script>
 		<script type="text/javascript" src="/static/js/main.js"></script>
 		<script type="text/javascript" src="/static/js/message.js"></script>
+		<script type="text/javascript" src="/static/js/jquery.form.js"></script>
 		<script>
-			$$(function(){
-				$$('.message').corner('5px')
+			$$(document).ready(function(){
+				var options = {
+					url: "/post",
+					success: function() {
+						alert("Спасибо за комментарий!");
+					}
+				};
+				$$("#form").submit(function() {
+					$$("#form").ajaxSubmit(options);
+					return false;
+				});
+				$$('.message').corner('5px');
 			});
 		</script>
 		<style type="text/css">
@@ -26,8 +37,8 @@ $def with (messages)
 
 	<body>
 		$:render.top_bar()
-		<form method="post" action="/post" onSubmit="if (post() == false) {return false;}">
-			<textarea cols="40" rows="4" name="body" id="input"></textarea><br />
+		<form method='post' action='/post' id='form'>
+			<textarea cols="40" rows="4" name="body"></textarea><br />
 			<input type='submit' value='post'>
 		</form>	
 		$for message in messages:
