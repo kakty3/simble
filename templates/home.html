@@ -22,7 +22,7 @@ $def with (messages)
 					$$("#message").val('');
 					$$('#submit-button').html('posted')
 					$$('#img-loader').hide();
-					alert("Спасибо за комментарий!");
+					//alert("Спасибо за комментарий!");
 				}
 			};
 
@@ -47,15 +47,8 @@ $def with (messages)
 		<form name='myform' method='post' action='/post' id='form'>
 			<textarea cols="40" rows="4" name="body" id='message'></textarea><br />
 			<img id='img-loader' style='display: none' src='/static/ajax-loader.gif'><span class='button' onClick='formSubmit()' id='submit-button'>post</span>
-		</form>	
+		</form>
 		$for message in messages:
 			$:render.message(message, {'time' : True, 'author' : False, 'delete' : True,} )
-		<!--
-		<div class='message'>
-			$message.body<br /> 
-			<a href="../post/$message.id"><span style="font-size: 12px; color:#B0B0B0">Posted on $message.created.strftime("%B %d at %H:%M")</span></a>
-			<span onClick="if (confirm('A you shure? You can\'t undelete message!')) deletePost($message.id);" style="float: right; font-size: 12px; color:#B0B0B0">delete</span>
-		</div>
-		-->
 	</body>
 </html>

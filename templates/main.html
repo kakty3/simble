@@ -22,16 +22,5 @@ $def with (messages)
 		$:render.top_bar()
 		$for message in messages:
 			$:render.message(message, {'time' : True, 'author' : True, 'delete' : False} )
-		<!--<div class='message'>
-			$message.body<br /> 
-			<a href="../post/$message.id"><span style="font-size: 12px; color:#B0B0B0">Posted on $message.created.strftime("%B %d at %H:%M")</span></a>
-			<span style="font-size: 12px; color:#B0B0B0">by 
-				$ name = getName(message.author)
-				$if name == session.username:
-					<a href="/home">you</a>
-				$else:
-					<a href="/$name">$name</a>
-			</span>
-		</div>-->
 	</body>
 </html>
