@@ -116,7 +116,9 @@ class userPage:
 	def GET(self, userName):
 		resp = users.getUser(name = userName)
 		print '<<RESP>>', resp
-		if resp == 0:
+		if resp == -1:
+			return 'no user with this name'
+		else:
 			userId = resp.id
 			if userId == -1:
 				return 'No user with this name'
@@ -124,8 +126,6 @@ class userPage:
 				messages = list(db.select('messages', where="author=$id", vars={'id' : userId}, order="created DESC"))
 				#print messages
 				return render.user(messages, userName)
-		else:
-			return 'no user with this name'
 
 class showPost:
 	def GET(self, id):
