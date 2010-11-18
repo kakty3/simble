@@ -16,20 +16,17 @@ $def with (messages)
 				$$('.message').corner('5px');
 			});
 			
-			var options = {
-				url: "/post",
-				success: function() {
-					$$("#message").val('');
-					$$('#submit-button').html('posted')
-					$$('#img-loader').hide();
-					//alert("Спасибо за комментарий!");
-				}
-			};
-
-			function formSubmit() {
+			function messageFormSubmit() {
 				$$('#submit-button').html('posting...');
 				$$('#img-loader').show();
-				$$("#form").ajaxSubmit(options);
+				$$("#form").ajaxSubmit({
+					url: "/post",
+					success: function() {
+						$$("#message").val('');
+						$$('#submit-button').html('posted')
+						$$('#img-loader').hide();
+					}
+				});
 				return false;
 			};
 		</script>
@@ -46,9 +43,10 @@ $def with (messages)
 		$:render.top_bar()
 		<form name='myform' method='post' action='/post' id='form'>
 			<textarea cols="40" rows="4" name="body" id='message'></textarea><br />
-			<img id='img-loader' style='display: none' src='/static/ajax-loader.gif'><span class='button' onClick='formSubmit()' id='submit-button'>post</span>
+			<span class='button' onCLick='messageFormSubmit()' id='submit-button'>post</span><img id='img-loader' style='display: none' src='/static/ajax-loader.gif'>
 		</form>
 		$for message in messages:
 			$:render.message(message, {'time' : True, 'author' : False, 'delete' : True,} )
 	</body>
 </html>
+
