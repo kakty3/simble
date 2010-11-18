@@ -26,10 +26,8 @@ def getUser(**request):
 	for k in request.keys()[1:]:
 		w = ('%s AND %s=$%s') % (w, k, k)
 		v[k] = request[k]
-	print w
-	print v
 	users = db.select('users', where=w, vars=v)
-	print len(users)
+	#print len(users)
 	if len(users):
 		return users[0]
 	else:
@@ -38,7 +36,7 @@ def getUser(**request):
 def getName(id):
 	#check = db.select('users', where="id=$id", vars={'id' : id})
 	user = getUser(id = id)
-	print user
+	#print user
 	return user.name
 '''
 def getId(name):
@@ -54,7 +52,7 @@ def login(i):
 	print "trying to login"
 	session = web.ctx.session
 	pswd = md5(i.password).hexdigest()
-	check = db.select('users', where="name=$n AND password=$pswd", vars={'n' : i.username, 'pswd' : pswd})
+	check = db.select('users', where="name=$n AND password=$pswd", vars={'n' : i.login, 'pswd' : pswd})
 	if check:
 		user = check[0]
 		session.loggedin = True

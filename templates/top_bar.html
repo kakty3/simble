@@ -1,5 +1,18 @@
 $def with ()
+		<script>
+			var options = {
+				url: "/login",
+				success: function(data) {
+					if (data == 0) {alert('success!')}
+					else {alert('error!')}
+				}
+			};
 
+			function formSubmit() {
+				$$("#loginForm").ajaxSubmit(options);
+				return false;
+			};
+		</script>
 		<div id="top-nav">
 			<span class="logo" onClick="window.location = 'http://' + window.location.host">simple blog engine</span>
 			$if session.loggedin:
@@ -9,9 +22,9 @@ $def with ()
 			<span class='right' ><span class='button' onClick="$$('#login-bar').slideToggle(); $$('#login').focus()">log in</span> <span style='font-size: 17px; color: #80AEBA'>or</span> <span class='button'>sign up</span></span>
 		</div>
 			$if not session.loggedin:
-				<div id="login-bar" >
-					<input id='login' type=text style="border: 1px solid #51A2E8; font-size: 12px; width: 150px;">&nbsp;<input id='password' type=password style="border: 1px solid #51A2E8; font-size: 12px; width: 150px;">&nbsp;<span id='login_button' onClick="login($$('#login')[0].value, $$('#password')[0].value)" class='button'>→</span>
-				</div>
+				<form id='loginForm' name='loginForm' method='post' action='/login'>
+					<input name='login' type='text' style="border: 1px solid #51A2E8; font-size: 12px; width: 150px;">&nbsp;<input name='password' type=password style="border: 1px solid #51A2E8; font-size: 12px; width: 150px;">&nbsp;<span id='login_button' onClick='formSubmit()' class='button'>→</span>
+				</form>
 		<script>$$('#login, #password').each(
 					function(){
 						$$(this).keyup(function(e) {

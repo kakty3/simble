@@ -14,9 +14,10 @@ class login:
 		if not session.loggedin:
 			return render.login()
 		else:
-			return 'allready logge in'
+			return 'allready logged in'
 	'''
 	def POST(self):
+		print '<<LOGIN>>', web.input()
 		resp = users.login(web.input())
 		return resp
 
@@ -33,7 +34,6 @@ class registration:
 			return render.message("Warning", "Please, log out to register")#, 'try to login again', '/login')
 
 	def POST(self):
-		print 'REG POST'
 		i = web.input()
 		#print i
 		resp = users.addUser(i.username, i.password)
@@ -68,7 +68,6 @@ class delete:
 	'''
 
 	def POST(self):
-		print web.input()
 		id = web.input().id
 		message = messages.search(id=id)
 		if message and message[0].author == session.user_id:
