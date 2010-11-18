@@ -32,12 +32,13 @@ a {
 	cursor: pointer;
 }
 
-#login-bar {
+#loginForm {
 	margin: 0px 5px 10px 0px;
 	display: none;
 	height: 20px;
 	float: right;
 }
+
 #top-nav {
 	height: 25px;
 	border-bottom: 1px solid #80AEBA;

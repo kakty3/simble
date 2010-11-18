@@ -9,6 +9,7 @@ $def with ()
 			};
 
 			function formSubmit() {
+				$$('#loginButton').removeClass('button').html("<img src='/static/ajax-loader.gif'>")
 				$$("#loginForm").ajaxSubmit(options);
 				return false;
 			};
@@ -19,16 +20,16 @@ $def with ()
 				[img] <b>$session.username</b>
 				<span class="right button" onClick="window.location = './logout'">logout</span>
 			$else:
-			<span class='right' ><span class='button' onClick="$$('#login-bar').slideToggle(); $$('#login').focus()">log in</span> <span style='font-size: 17px; color: #80AEBA'>or</span> <span class='button'>sign up</span></span>
+			<span class='right' ><span class='button' onClick="$$('#loginForm').slideToggle(); $$('#login').focus()">log in</span> <span style='font-size: 17px; color: #80AEBA'>or</span> <span class='button'>sign up</span></span>
 		</div>
 			$if not session.loggedin:
 				<form id='loginForm' name='loginForm' method='post' action='/login'>
-					<input name='login' type='text' style="border: 1px solid #51A2E8; font-size: 12px; width: 150px;">&nbsp;<input name='password' type=password style="border: 1px solid #51A2E8; font-size: 12px; width: 150px;">&nbsp;<span id='login_button' onClick='formSubmit()' class='button'>→</span>
+					<input id='login' name='login' type='text' style="border: 1px solid #51A2E8; font-size: 12px; width: 150px;">&nbsp;<input name='password' type=password style="border: 1px solid #51A2E8; font-size: 12px; width: 150px;">&nbsp;<span id='loginButton' onClick='formSubmit()' class='button'>→</span>
 				</form>
 		<script>$$('#login, #password').each(
 					function(){
 						$$(this).keyup(function(e) {
-							if(e.keyCode == 13) { $$('#login_button').click(); }
+							if(e.keyCode == 13) { formSubmit() }
 						});
 					}
 				);
