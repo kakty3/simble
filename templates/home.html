@@ -15,20 +15,29 @@ $def with (messages)
 			$$(document).ready(function(){
 				$$('.message').corner('5px');
 			});
-			
+
 			function messageFormSubmit() {
-				$$('#submit-button').html('posting...');
-				$$('#img-loader').show();
-				$$("#form").ajaxSubmit({
-					url: "/post",
-					success: function() {
-						$$("#message").val('');
-						$$('#submit-button').html('posted')
-						$$('#img-loader').hide();
-					}
-				});
+				if($$('#message').val() != '') {
+					$$('#submit-button').html('posting...');
+					$$('#img-loader').show();
+					$$("#form").ajaxSubmit({
+						url: "/post",
+						success: function() {
+							$$("#message").val('');
+							$$('#submit-button').html('posted')
+							$$('#img-loader').hide();
+							window.location.reload();
+						}
+					});
+				};
 				return false;
 			};
+
+			function ctrlEnter(event)
+			{
+				if((event.ctrlKey) && ((event.keyCode == 0xA)||(event.keyCode == 0xD))) { messageFormSubmit(); }
+			};
+
 		</script>
 		<style type="text/css">
 			textarea {
@@ -41,12 +50,12 @@ $def with (messages)
 
 	<body>
 		$:render.top_bar()
-		<form name='myform' method='post' action='/post' id='form'>
+		<form name='myform' method='post' action='/post' id='form' onKeyPress='ctrlEnter(event)'>
 			<textarea cols="40" rows="4" name="body" id='message'></textarea><br />
-			<span class='button' onCLick='messageFormSubmit()' id='submit-button'>post</span><img id='img-loader' style='display: none' src='/static/ajax-loader.gif'>
+			<span class='button'  onCLick='messageFormSubmit()' id='submit-button'>post</span><img class='right' id='img-loader' style='display: none' src='/static/ajax-loader.gif'>
 		</form>
 		$for message in messages:
-			$:render.message(message, {'time' : True, 'author' : False, 'delete' : True,} )
+		$:render.message(message, {'time' : True, 'author' : False, 'delete' : True,} )
 	</body>
 </html>
 
