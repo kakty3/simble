@@ -5,6 +5,12 @@ body {
 	margin-top: 10px;
 }
 
+.context {
+	font-size: 12px;
+	font-style: italic;
+	color: #888888; 
+}
+
 .logo {
 	#border: 1px solid black;
 	padding: 4px;

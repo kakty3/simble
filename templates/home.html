@@ -19,13 +19,13 @@ $def with (messages)
 			function messageFormSubmit() {
 				if($$('#message').val() != '') {
 					$$('#submit-button').html('posting...');
-					$$('#img-loader').show();
+					$$('#post-context').html("<img id='img-loader' src='/static/ajax-loader.gif'>");
 					$$("#form").ajaxSubmit({
 						url: "/post",
 						success: function() {
 							$$("#message").val('');
 							$$('#submit-button').html('posted')
-							$$('#img-loader').hide();
+							$$('#post-context').html("<span id='post-context' class='right'><span class='context'>Press Ctrl+Enter to post</span>");
 							window.location.reload();
 						}
 					});
@@ -52,7 +52,7 @@ $def with (messages)
 		$:render.top_bar()
 		<form name='myform' method='post' action='/post' id='form' onKeyPress='ctrlEnter(event)'>
 			<textarea cols="40" rows="4" name="body" id='message'></textarea><br />
-			<span class='button'  onCLick='messageFormSubmit()' id='submit-button'>post</span><img class='right' id='img-loader' style='display: none' src='/static/ajax-loader.gif'>
+			<span class='button'  onCLick='messageFormSubmit()' id='submit-button'>post</span><span id='post-context' class='right'><span class='context'>Press Ctrl+Enter to post</span></span>
 		</form>
 		$for message in messages:
 		$:render.message(message, {'time' : True, 'author' : False, 'delete' : True,} )
