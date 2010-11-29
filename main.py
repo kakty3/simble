@@ -17,7 +17,7 @@ class login:
 			return 'allready logged in'
 	'''
 	def POST(self):
-		print '<<LOGIN>>', web.input()
+		#print '<<LOGIN>>', web.input()
 		resp = users.login(web.input())
 		return resp
 
@@ -114,7 +114,7 @@ class main:
 class userPage:
 	def GET(self, userName):
 		resp = users.getUser(name = userName)
-		print '<<RESP>>', resp
+		#print '<<RESP>>', resp
 		if resp == -1:
 			return 'no user with this name'
 		else:

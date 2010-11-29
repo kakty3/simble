@@ -3,6 +3,16 @@ from hashlib import md5
 
 db = web.database(dbn='mysql', user='webpy', pw='webpy', db='blog')
 
+class User:
+	def __init__(self, id, name, password):
+		self.id = id
+		self.name = name
+		self.password = password
+
+	def getMessages(self, offset=0):
+		messages = list(db.select('messages', where="author=$id", vars={'id' : self.id}, order="created DESC", offset=offset))
+		return messages
+
 def addUser(name, password):
 	'''
 	Statuses:
@@ -33,20 +43,27 @@ def getUser(**request):
 	else:
 		return -1
 
+
+def getUsr(**request):
+	x = request.keys()[0]
+	w = ('%s=$%s') % (x, x)
+	v = {x : request[x]}
+	for k in request.keys()[1:]:
+		w = ('%s AND %s=$%s') % (w, k, k)
+		v[k] = request[k]
+	users = db.select('users', where=w, vars=v)
+	#print len(users)
+	if len(users):
+		user = users[0]
+		return User(user.id, user.name, user.password)
+	else:
+		return -1
+
 def getName(id):
 	#check = db.select('users', where="id=$id", vars={'id' : id})
 	user = getUser(id = id)
 	#print user
 	return user.name
-'''
-def getId(name):
-	check = db.select('users', where="name=$name", vars={'name' : name})
-	if check:
-		return check[0].id
-	else:
-		return -1
-'''
-
 
 def login(i):
 	print "trying to login"
@@ -69,5 +86,5 @@ def logout():
 
 if __name__ ==  '__main__':
 	#print getName(2)
-	pass
-	search(id = 3, name = 'sergey')
+	pocik = getUsr(id =  2)
+	print pocik.id

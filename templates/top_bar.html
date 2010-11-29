@@ -17,7 +17,7 @@ $def with ()
 		<div id="top-nav">
 			<span class="logo" onClick="window.location = 'http://' + window.location.host">simple blog engine</span>
 			$if session.loggedin:
-				[img] <b>$session.username</b>
+				<b>$session.username</b> <a href='/home'><span class='context'>home</span></a>
 				<span class="right button" onClick="window.location = './logout'">logout</span>
 			$else:
 			<span class='right' ><span class='button' onClick="$$('#loginForm').slideToggle(); $$('#login').focus()">log in</span> <span style='font-size: 17px; color: #80AEBA'>or</span> <span class='button'>sign up</span></span>
