@@ -170,12 +170,6 @@ global_vars['render'] = render
 web.ctx.render = render
 db = web.database(dbn='mysql', user='webpy', pw='webpy', db=dbName)
 
-web.config.smtp_server = 'smtp.gmail.com'
-web.config.smtp_port = 587
-web.config.smtp_username = 'kakty3.mail@gmail.com'
-web.config.smtp_password = 'adm1nhasg0nend139374'
-web.config.smtp_starttls = True
-
 #=======================================================================
 
 if __name__ == "__main__":
